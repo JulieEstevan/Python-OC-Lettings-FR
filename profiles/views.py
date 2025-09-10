@@ -2,17 +2,41 @@ from django.shortcuts import render
 from .models import Profile
 
 
-# Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex, sed consequat libero pulvinar eget. Fusc
-# faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum lacus d
 def index(request):
+    """
+    View for the index page of profiles.
+
+    This view retrieves all Profile objects from the database and passes them
+    to the 'profiles/index.html' template.
+    It is used to display a list of all user profiles available in the system.
+
+    Args:
+        request: The HttpRequest object.
+
+    Returns:
+        HttpResponse: The rendered index page with the list of profiles.
+    """
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)
 
-# Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac
-# laoreet neque quis, pellentesque dui. Nullam facilisis pharetra vulputate. Sed tincidunt, dolor id facilisis fringilla, eros leo tristique lacus,
-# it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus et netus et males
+
 def profile(request, username):
+    """
+    View for displaying a specific user profile.
+
+    This view retrieves a Profile object based on the provided username and
+    passes it to the 'profiles/profile.html' template.
+    It is used to display detailed information about a specific user profile.
+
+    Args:
+        request: The HttpRequest object.
+        username (str): The username of the user whose profile is to
+        be retrieved.
+
+    Returns:
+        HttpResponse: The rendered page for the specified user profile.
+    """
     profile = Profile.objects.get(user__username=username)
     context = {'profile': profile}
     return render(request, 'profiles/profile.html', context)
