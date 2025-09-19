@@ -4,3 +4,4 @@ venv
 .env
 .pytest_cache
 /flake-report
+django_*.log
