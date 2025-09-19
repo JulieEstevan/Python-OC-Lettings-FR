@@ -37,6 +37,7 @@ class Address(models.Model):
         and street.
         """
         return f'{self.number} {self.street}'
+
     class Meta:
         verbose_name_plural = 'adresses'
 
