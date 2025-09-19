@@ -84,6 +84,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: docker_build_and_push  # Ce job ne s'exécute que si docker_build_and_push est réussi
     steps:
+      - name: Install Render CLI
+        run: |
+          curl -fsSL https://github.com/renderinc/cli/releases/latest/download/render-linux-amd64 -o render
+          chmod +x render
+          sudo mv render /usr/local/bin/
+
       - name: Log in to Render
         run: |
           curl -fsSL https://render.com/cli.sh | bash
