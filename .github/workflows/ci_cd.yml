@@ -100,9 +100,7 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          render deploys create \
-            ${{ secrets.RENDER_SERVICE_ID }} \
-            --branch master \
+          render deploys create ${{ secrets.RENDER_SERVICE_ID }} \
             --api-key ${{ secrets.RENDER_API_KEY }} \
+            --image ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:latest \
             --wait
-
