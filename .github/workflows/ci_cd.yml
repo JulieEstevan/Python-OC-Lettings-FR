@@ -101,6 +101,8 @@ jobs:
       - name: Deploy to Render
         run: |
           render deploys create \
-            --service-id ${{ secrets.RENDER_SERVICE_ID }} \
+            ${{ secrets.RENDER_SERVICE_ID }} \
             --branch master \
-            --api-key ${{ secrets.RENDER_API_KEY }}
+            --api-key ${{ secrets.RENDER_API_KEY }} \
+            --wait
+
