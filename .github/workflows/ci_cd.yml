@@ -87,20 +87,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Render CLI (new official way)
+      - name: Install Render CLI (v1.1.0)
         run: |
-          curl -fsSL https://raw.githubusercontent.com/render-oss/cli/refs/heads/main/bin/install.sh | sh
-        shell: bash
-
-      - name: Add Render CLI to PATH
-        run: echo "$HOME/.render/bin" >> $GITHUB_PATH
-
-      - name: Check Render CLI version
-        run: render --version
+          curl -L https://github.com/render-oss/cli/releases/download/v1.1.0/cli_1.1.0_linux_amd64.zip -o render.zip
+          unzip render.zip
+          sudo mv cli_v1.1.0 /usr/local/bin/render
 
       - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          CI: true
         run: |
           render deploys create ${{ secrets.RENDER_SERVICE_ID }} \
-            --api-key ${{ secrets.RENDER_API_KEY }} \
             --image ${{ secrets.DOCKER_USERNAME }}/oc_lettings_site:latest \
+            --output json \
+            --confirm \
             --wait
