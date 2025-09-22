@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -118,7 +119,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collecting static files in production
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # For local static files
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Sentry configuration
 SENTRY_DSN = os.getenv('SENTRY_DSN')
@@ -178,3 +178,9 @@ LOGGING = {
         },
     },
 }
+
+# Use simpler storage in test mode to avoid manifest errors
+if 'test' in sys.argv:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -11,11 +11,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copie du reste du code
 COPY . /app/
 
-# Copie des fichiers de configuration
-RUN python manage.py collectstatic --noinput
-
 # Exposition du port 8000
 EXPOSE 8000
+
+# Copie des fichiers de configuration
+RUN python manage.py collectstatic --noinput
 
 # Commande pour démarrer l'application
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi:application"]
