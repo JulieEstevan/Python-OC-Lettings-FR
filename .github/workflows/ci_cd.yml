@@ -87,17 +87,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Download Render CLI manually
+      - name: Install Render CLI (new official way)
         run: |
-          mkdir -p ~/.render/bin
-          curl -L https://github.com/render-examples/render-cli/releases/download/v0.1.3/render-linux-amd64 -o ~/.render/bin/render
-          chmod +x ~/.render/bin/render
+          curl -fsSL https://raw.githubusercontent.com/render-oss/cli/refs/heads/main/bin/install.sh | sh
         shell: bash
 
       - name: Add Render CLI to PATH
         run: echo "$HOME/.render/bin" >> $GITHUB_PATH
 
-      - name: Verify Render CLI
+      - name: Check Render CLI version
         run: render --version
 
       - name: Deploy to Render
