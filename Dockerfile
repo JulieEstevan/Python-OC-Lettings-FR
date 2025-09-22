@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copie du reste du code
 COPY . /app/
 
+# Copie des fichiers de configuration
+RUN python manage.py collectstatic --noinput
+
 # Exposition du port 8000
 EXPOSE 8000
 
