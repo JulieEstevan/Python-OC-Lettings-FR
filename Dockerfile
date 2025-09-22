@@ -14,5 +14,5 @@ COPY . /app/
 # Exposition du port 8000
 EXPOSE 8000
 
-# Commande pour démarrer l'application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "oc_lettings_site.wsgi:application"]
+# Commande de démarrage combinée
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 oc_lettings_site.wsgi:application"]
