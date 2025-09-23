@@ -91,4 +91,7 @@ jobs:
 
 ---
 
+## Read the docs
+- Documentation (in French) on Read the docs here : [OC-Lettigs docs](https://oc-lettings-je.readthedocs.io/fr/latest/description_interfaces_programmation.html)
+
 Feel free to contribute or open issues!
